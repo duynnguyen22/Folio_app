@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-desk: var(--desk);
+  --color-desk-2: var(--desk-2);
+  --color-desk-3: var(--desk-3);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-text-dim: var(--text-dim);
+  --color-brass: var(--brass);
+  --color-brass-hi: var(--brass-hi);
+  --color-danger: var(--danger);
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-ui: var(--font-instrument), system-ui, sans-serif;
+}
