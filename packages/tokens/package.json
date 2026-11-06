@@ -1,0 +1,6 @@
+{
+  "name": "@folio/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "exports": { "./folio.css": "./folio.css" }
+}

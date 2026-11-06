@@ -1,0 +1,55 @@
+/* Folio design tokens, carried over from the prototype's walnut reading room. */
+:root {
+  color-scheme: dark;
+  --desk: #1c1713;
+  --desk-2: #251f19;
+  --desk-3: #30281f;
+  --line: #46392d;
+  --text: #f0e8da;
+  --text-dim: #bbae9a;
+  --brass: #c9a45c;
+  --brass-hi: #e3c68c;
+  --brass-ink: #1c1713;
+  --oxblood: #8e2f28;
+  --leather: #5a3826;
+  --leather-hi: #6f4630;
+  --danger: #e5937a;
+}
+
+/* Paper themes for the reader and the writing desk. */
+[data-paper='cream'] {
+  --paper: #f5eedf;
+  --ink: #2a231e;
+  --ink-dim: #77654f;
+  --edge: #dccfb6;
+  --edge-2: #c9bb9f;
+  --spine: rgba(60, 38, 18, 0.38);
+  --mark: #8e2f28;
+}
+[data-paper='white'] {
+  --paper: #fbfaf7;
+  --ink: #1e1c19;
+  --ink-dim: #6a665e;
+  --edge: #e3dfd7;
+  --edge-2: #d2cdc3;
+  --spine: rgba(30, 25, 20, 0.22);
+  --mark: #8e2f28;
+}
+[data-paper='sepia'] {
+  --paper: #e9d9bc;
+  --ink: #3a2a1c;
+  --ink-dim: #76593c;
+  --edge: #cdb58c;
+  --edge-2: #b89e72;
+  --spine: rgba(70, 40, 10, 0.42);
+  --mark: #7e2a22;
+}
+[data-paper='night'] {
+  --paper: #25211e;
+  --ink: #e4d9c7;
+  --ink-dim: #a99a87;
+  --edge: #3a332d;
+  --edge-2: #2e2823;
+  --spine: rgba(0, 0, 0, 0.7);
+  --mark: #c9a45c;
+}
