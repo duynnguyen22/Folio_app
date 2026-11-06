@@ -1,0 +1,10 @@
+node_modules
+dist
+.next
+.turbo
+.env
+coverage
+apps/api/src/generated
+.superpowers
+*.tsbuildinfo
+next-env.d.ts
