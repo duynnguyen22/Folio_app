@@ -21,8 +21,8 @@ export const metadata: Metadata = { title: 'Folio' };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${ui.variable}`}>
-      <body className="bg-desk text-text font-ui antialiased">{children}</body>
+    <html lang="en" className={`dark ${display.variable} ${ui.variable}`}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }

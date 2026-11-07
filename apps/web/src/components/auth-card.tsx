@@ -1,5 +1,14 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export function AuthCard(props: {
   title: string;
@@ -8,20 +17,27 @@ export function AuthCard(props: {
 }) {
   return (
     <main className="flex min-h-dvh items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm rounded-2xl border border-line bg-desk-2 p-8 shadow-2xl">
-        <p className="font-display text-lg italic text-brass">Folio</p>
-        <h1 className="mt-1 mb-6 font-display text-4xl font-semibold">{props.title}</h1>
-        {props.children}
-        <p className="mt-6 text-center text-sm text-text-dim">
-          {props.footer.text}{' '}
-          <Link
-            href={props.footer.href}
-            className="inline-flex min-h-11 items-center text-brass underline-offset-4 hover:underline"
+      <Card className="w-full max-w-sm shadow-2xl [--card-spacing:--spacing(6)]">
+        <CardHeader>
+          <CardDescription className="font-heading text-lg italic text-brass">
+            Folio
+          </CardDescription>
+          <CardTitle className="text-4xl font-semibold">
+            <h1>{props.title}</h1>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>{props.children}</CardContent>
+        <CardFooter className="justify-center gap-1 text-sm text-muted-foreground">
+          {props.footer.text}
+          <Button
+            variant="link"
+            className="min-h-11 px-1"
+            render={<Link href={props.footer.href} />}
           >
             {props.footer.linkText}
-          </Link>
-        </p>
-      </div>
+          </Button>
+        </CardFooter>
+      </Card>
     </main>
   );
 }

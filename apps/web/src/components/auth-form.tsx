@@ -1,8 +1,14 @@
 'use client';
 
 import { type ApiError, fieldErrors, loginSchema, signupSchema } from '@folio/shared';
+import { AlertCircleIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { type FormEvent, useId, useRef, useState } from 'react';
+import { Alert, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
+import { Spinner } from '@/components/ui/spinner';
 
 type Mode = 'login' | 'signup';
 type Field = 'displayName' | 'email' | 'password';
@@ -28,10 +34,7 @@ export function AuthForm({ mode }: { mode: Mode }) {
     event.preventDefault();
     if (inFlight.current) return;
 
-    const input =
-      mode === 'signup'
-        ? values
-        : { email: values.email, password: values.password };
+    const input = mode === 'signup' ? values : { email: values.email, password: values.password };
     const parsed = (mode === 'signup' ? signupSchema : loginSchema).safeParse(input);
     if (!parsed.success) {
       setErrors(fieldErrors(parsed.error));
@@ -70,11 +73,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
     const errorId = `${inputId}-error`;
     const error = errors[name];
     return (
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor={inputId} className="text-sm text-text-dim">
-          {label}
-        </label>
-        <input
+      <Field data-invalid={error ? true : undefined}>
+        <FieldLabel htmlFor={inputId}>{label}</FieldLabel>
+        <Input
           id={inputId}
           name={name}
           type={type}
@@ -83,34 +84,42 @@ export function AuthForm({ mode }: { mode: Mode }) {
           onChange={(e) => setValues((v) => ({ ...v, [name]: e.target.value }))}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="min-h-11 rounded-lg border border-line bg-desk-3 px-3 text-text outline-none focus-visible:border-brass focus-visible:ring-2 focus-visible:ring-brass/40 aria-invalid:border-danger"
+          className="min-h-11"
         />
-        {error && (
-          <p id={errorId} className="text-sm text-danger">
-            {error}
-          </p>
-        )}
-      </div>
+        {error && <FieldError id={errorId}>{error}</FieldError>}
+      </Field>
     );
   }
 
   return (
-    <form noValidate onSubmit={onSubmit} className="flex flex-col gap-4">
-      {mode === 'signup' && field('displayName', 'Your name', 'text', 'name')}
-      {field('email', 'Email', 'email', 'email')}
-      {field('password', 'Password', 'password', mode === 'signup' ? 'new-password' : 'current-password')}
-      {formError && (
-        <p role="alert" className="rounded-lg border border-danger/40 px-3 py-2 text-sm text-danger">
-          {formError}
-        </p>
-      )}
-      <button
-        type="submit"
-        disabled={pending}
-        className="mt-2 min-h-11 rounded-full bg-brass px-6 font-semibold text-[var(--brass-ink)] transition-colors hover:bg-brass-hi disabled:cursor-wait disabled:opacity-70"
-      >
-        {pending ? copy.pending : copy.submit}
-      </button>
+    <form noValidate onSubmit={onSubmit}>
+      <FieldGroup>
+        {mode === 'signup' && field('displayName', 'Your name', 'text', 'name')}
+        {field('email', 'Email', 'email', 'email')}
+        {field(
+          'password',
+          'Password',
+          'password',
+          mode === 'signup' ? 'new-password' : 'current-password',
+        )}
+        {formError && (
+          <Alert variant="destructive">
+            <AlertCircleIcon />
+            <AlertTitle>{formError}</AlertTitle>
+          </Alert>
+        )}
+        <Button type="submit" size="lg" disabled={pending} className="min-h-11 w-full">
+          {pending && (
+            <Spinner
+              data-icon="inline-start"
+              aria-hidden="true"
+              role={undefined}
+              aria-label={undefined}
+            />
+          )}
+          {pending ? copy.pending : copy.submit}
+        </Button>
+      </FieldGroup>
     </form>
   );
 }
